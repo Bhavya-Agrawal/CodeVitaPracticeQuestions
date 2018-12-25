@@ -10,37 +10,36 @@ int main()
 	cout<<"enter the expression"<<endl;
 	getline(cin,str);
 	
-	int n1=0,n2=0,top=-1,i,value=0,maxstk=0;
+	int n1=0,n2=0,top=-1,i=0,value=0,maxstk=0,count=0;
 
 	int stack[20];
 	maxstk = 20;
 
 
-	for(i=0;i<str.length();i++)
+	cout<<str.length()<<endl;
+	//for(i=0;i<str.length();i++)
+	while(i<=str.length()-1)
 	{
-		//cout<<str[i]<<endl;
+		//cout<<"i=="<<i<<endl;
+		cout<<"str[i]=="<<str[i]<<endl;
 		if(top!=maxstk)
 		{
+
+		//while str[i] is neither a , nor a null character
+		while(str[i]!=','&&str[i]!='\0')
+		{	
 		if(str[i]>='0'&&str[i]<='9')
 		{
-			//cout<<stack[top]<<endl;
-			//cout<<"str[i]=="<<str[i]<<endl;
-			top+=1;
-
+			
 			data+=str[i];
 			//right now the ascii value of the no is entered into the stack so to convert string to int and adding the no to stack use stoi
-			stack[top] = stoi(data);
-			cout<<"stack[top]=="<<stack[top]<<endl;
-			data.clear();
-		}
-
-		else if(str[i] == ',')
-		{
-			//do nothing
+			count = 1;
+			cout<<"data=="<<data<<endl;
 		}
 
 		else if(str[i]=='+'||str[i]=='-'||str[i]=='*'||str[i]=='/')
 		{
+			count = 0;
 			//take the operation into the op string
 			op+=str[i];
 			n2 = stack[top];
@@ -67,14 +66,28 @@ int main()
 			top+=1;
 			stack[top] = value;
 		//clear the op string
-		op.clear();	
-		//cout<<op<<endl;		
+		op.clear();			
 		}
 
 		//cout<<stack[top]<<endl;
+		
+		i+=1;
+
 		}
-		else
-		{}
+
+		//inserting numerical value onto the stack
+		if(count==1)
+		{
+		top+=1;
+		stack[top] = stoi(data);
+		cout<<"stack[top]=="<<stack[top]<<endl;
+		data.clear();
+		count=0;
+		}
+
+		i+=1;
+
+		}
 	}
 
 	//printing out the final value from postfix evaluation
